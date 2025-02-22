@@ -61,6 +61,15 @@ async function run() {
       }
     });
 
+    app.get("/tasks", async (req, res) => {
+      try {
+        const tasks = await taskCollection.find().toArray();
+        res.status(200).json(tasks);
+      } catch (error) {
+        res.status(500).json({ message: "Error fetching tasks", error });
+      }
+    });
+
 
 
 
