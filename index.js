@@ -70,6 +70,18 @@ async function run() {
       }
     });
 
+    app.put("/tasks/:id", async (req, res) => {
+      try {
+        const { title, description, category } = req.body;
+        const result = await taskCollection.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { $set: { title, description, category } }
+          );
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(500).json({ message: "Error updating task", error });
+      }
+    });
 
 
 
